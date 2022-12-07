@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 
 @Controller
-@RequestMapping()
+@RequestMapping("admin")
 public class AdminController {
 
     private final UserService userService;
@@ -24,25 +24,25 @@ public class AdminController {
         this.roleService = roleService;
     }
 
-    @GetMapping("admin")
+    @GetMapping("")
     public String pageForAdmin(Model model) {
         model.addAttribute("users", userService.getAllUsers());
         return "users";
     }
 
-    @GetMapping("admin/{id}")
+    @GetMapping("/{id}")
     public String getUser(@PathVariable("id") long id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
         return "user";
     }
 
-    @GetMapping("admin/new")
+    @GetMapping("/new")
     public String pageCreateUser(@ModelAttribute("user") User user, Model model) {
         model.addAttribute("listRoles",roleService.getAllRoles());
         return "create";
     }
 
-    @PostMapping("admin/new")
+    @PostMapping("/new")
     public String pageCreate(@ModelAttribute("user")
                              @Valid User user, BindingResult bindingResult,
                              @RequestParam("listRoles") ArrayList<Long> roles) {
@@ -59,20 +59,20 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @PostMapping("/admin/delete/{id}")
+    @PostMapping("/delete/{id}")
     public String pageDelete(@PathVariable("id") long id) {
         userService.removeUser(id);
         return "redirect:/admin";
     }
 
-    @GetMapping("admin/edit/{id}")
+    @GetMapping("/edit/{id}")
     public String pageEditUser(@PathVariable("id") long id, Model model) {
         model.addAttribute("user",userService.getUserById(id));
         model.addAttribute("listRoles", roleService.getAllRoles());
         return "edit";
     }
 
-    @PostMapping("admin/edit")
+    @PostMapping("/edit")
     public String pageEdit(@Valid User user, BindingResult bindingResult,
                            @RequestParam("listRoles") ArrayList<Long>roles) {
         if (bindingResult.hasErrors()) {

@@ -9,7 +9,7 @@ import ru.kata.spring.boot_security.demo.DAO.UserDAO;
 import ru.kata.spring.boot_security.demo.model.User;
 
 @Service()
-@Transactional
+
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     UserDAO userDAO;
