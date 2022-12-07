@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 @Repository
-@Transactional
+//@Transactional
 public class RoleDAOImpl implements RoleDAO{
 
     @PersistenceContext
@@ -22,7 +22,7 @@ public class RoleDAOImpl implements RoleDAO{
     public List<Role> getAllRoles() {
         return entityManager.createQuery("select r from Role r").getResultList();
     }
-
+    @Transactional
     @Override
     public void addRole(Role role) {
         entityManager.persist(role);
